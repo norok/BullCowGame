@@ -1,7 +1,9 @@
 #include "FBullCowGame.h"
 
-FBullCowGame::FBullCowGame()
+FBullCowGame::FBullCowGame(int MaxTries)
 {
+	GameMaxTries = MaxTries;
+	FBullCowGame::Reset();
 	return;
 }
 
@@ -20,9 +22,9 @@ void FBullCowGame::IntroduceTheGame() const
 	return;
 }
 
-void FBullCowGame::NextTry()
+bool FBullCowGame::IsGameWon() const
 {
-	MyCurrentTry++;
+	return false;
 }
 
 bool FBullCowGame::CheckGuessValidity(std::string)
@@ -30,13 +32,14 @@ bool FBullCowGame::CheckGuessValidity(std::string)
 	return false;
 }
 
-bool FBullCowGame::IsGameWon()
+void FBullCowGame::NextTry()
 {
-	return false;
+	MyCurrentTry++;
 }
 
 void FBullCowGame::Reset()
 {
 	MyCurrentTry = 1;
+	MyMaxTries = GameMaxTries;
 	return;
 }

@@ -12,7 +12,7 @@ std::string GetGuess();
 bool AsktoPlayAgain();
 
 // Game instantiation
-FBullCowGame BCGame;
+FBullCowGame BCGame(8);
 
 // The entry point for our application
 int main()
@@ -26,6 +26,7 @@ int main()
 // Play a single game
 void PlayGame()
 {
+	BCGame.Reset();
 	int Tries = BCGame.GetMaxTries();
 
 	do {
