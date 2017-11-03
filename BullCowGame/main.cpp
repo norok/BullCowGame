@@ -30,11 +30,17 @@ void PlayGame()
 	int Tries = BCGame.GetMaxTries();
 
 	do {
+		// TODO change from FOR to WHILE loop once validating tries
 		for (int i = 1; i <= Tries; i++) {
-			PrintBackGuess(GetGuess());
+			PrintBackGuess(GetGuess()); // TODO check for valid guesses
+
+			// Submit valid guess to the game
+			// Print number of bulls and cows
+
 			BCGame.NextTry();
 		}
-		// fail
+		// TODO Add a game summary at the end
+
 		std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
 		BCGame.Reset();
 	} while (AsktoPlayAgain());

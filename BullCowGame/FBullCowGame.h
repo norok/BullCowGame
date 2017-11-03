@@ -10,11 +10,13 @@ public:
 	int GetMaxTries() const;
 	int GetCurrentTry() const;
 	void IntroduceTheGame() const;
-	bool IsGameWon() const;
-
 	bool CheckGuessValidity(std::string);
 	void NextTry();
+	
+	bool IsGameWon() const;
 	void Reset();
+
+	// provide a method for counting bulls and cows and increasing turn numbers
 
 private:
 	int MyCurrentTry;
