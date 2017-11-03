@@ -2,25 +2,35 @@
 
 #include <string>;
 
+using FString = std::string;
+using int32 = int;
+
+// all variables initialised to zero
+struct BullCowCount
+{
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
+
 // Declarations
 class FBullCowGame
 {
 public:
-	FBullCowGame(int MaxTries); // Constructor
+	FBullCowGame(int32 MaxTries); // Constructor
 
-	int GetMaxTries() const;
-	int GetCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
 	void IntroduceTheGame() const;
-	bool CheckGuessValidity(std::string);
-	void NextTry();
+	bool CheckGuessValidity(FString);
+	BullCowCount SubmitGuess(FString);
 	
 	bool IsGameWon() const;
 	void Reset();
 
-	// provide a method for counting bulls and cows and increasing turn numbers
 
 private:
-	int MyCurrentTry;
-	int MyMaxTries;
-	int GameMaxTries;
+	int32 MyCurrentTry;
+	int32 MyMaxTries;
+	int32 GameMaxTries;
+	FString MyHiddenWord;
 };
