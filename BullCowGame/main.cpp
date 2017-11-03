@@ -12,10 +12,7 @@ using FText = FString;
 using int32 = int;
 
 // Game instantiation
-FBullCowGame BCGame(8);
-
-// Global Constants
-const int32 WORD_LENGTH = BCGame.GetHiddenWordLength();
+FBullCowGame BCGame(5);
 
 // Functions
 void PrintIntro();
@@ -30,6 +27,15 @@ int main()
 	PlayGame();
 
 	return 0;
+}
+
+// introduce the game
+void PrintIntro()
+{
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength()
+		<< " letter isogram I'm thinking of?" << std::endl;
+	return;
 }
 
 // Play a single game
@@ -55,15 +61,6 @@ void PlayGame()
 		BCGame.Reset();
 	} while (AsktoPlayAgain());
 
-	return;
-}
-
-// introduce the game
-void PrintIntro()
-{
-	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
-	std::cout << "Can you guess the " << WORD_LENGTH
-			<< " letter isogram I'm thinking of?" << std::endl;
 	return;
 }
 

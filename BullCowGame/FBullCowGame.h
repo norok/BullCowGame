@@ -17,7 +17,7 @@ struct FBullCowCount
 class FBullCowGame
 {
 public:
-	FBullCowGame(int32 MaxTries); // Constructor
+	FBullCowGame(int32); // Constructor
 
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
@@ -27,7 +27,6 @@ public:
 	
 	bool IsGameWon() const;
 	void Reset();
-
 
 private:
 	int32 MyCurrentTry;
