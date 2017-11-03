@@ -1,5 +1,7 @@
 #include "FBullCowGame.h"
 
+// Definitions
+
 FBullCowGame::FBullCowGame(int MaxTries)
 {
 	GameMaxTries = MaxTries;

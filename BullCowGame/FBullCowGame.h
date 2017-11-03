@@ -2,6 +2,7 @@
 
 #include <string>;
 
+// Declarations
 class FBullCowGame
 {
 public:
