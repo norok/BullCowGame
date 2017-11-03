@@ -12,7 +12,7 @@ using FText = FString;
 using int32 = int;
 
 // Game instantiation
-FBullCowGame BCGame(5);
+FBullCowGame BCGame;
 
 // Functions
 void PrintIntro();

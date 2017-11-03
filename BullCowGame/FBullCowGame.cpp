@@ -5,9 +5,8 @@ using FString = std::string;
 
 // Definitions
 
-FBullCowGame::FBullCowGame(int32 MaxTries)
+FBullCowGame::FBullCowGame()
 {
-	GameMaxTries = MaxTries;
 	FBullCowGame::Reset();
 	return;
 }
@@ -24,7 +23,7 @@ int32 FBullCowGame::GetCurrentTry() const
 
 int32 FBullCowGame::GetHiddenWordLength() const
 {
-	return MyHiddenWord.length();;
+	return MyHiddenWord.length();
 }
 
 bool FBullCowGame::IsGameWon() const
@@ -39,11 +38,12 @@ bool FBullCowGame::CheckGuessValidity(FString) const
 
 void FBullCowGame::Reset()
 {
+	constexpr int32 MAX_TRIES = 5;
 	const FString HIDDEN_WORD = "planet";
-	MyHiddenWord = HIDDEN_WORD;
 
+	MyHiddenWord = HIDDEN_WORD;
+	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
-	MyMaxTries = GameMaxTries;
 	return;
 }
 

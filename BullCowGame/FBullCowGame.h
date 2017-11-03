@@ -17,13 +17,15 @@ struct FBullCowCount
 class FBullCowGame
 {
 public:
-	FBullCowGame(int32); // Constructor
+	FBullCowGame(); // Constructor
 
+	// Getters
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
-	bool CheckGuessValidity(FString) const;
+
 	FBullCowCount SubmitGuess(FString);
+	bool CheckGuessValidity(FString) const;
 	
 	bool IsGameWon() const;
 	void Reset();
@@ -31,6 +33,5 @@ public:
 private:
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
-	int32 GameMaxTries;
 	FString MyHiddenWord;
 };
