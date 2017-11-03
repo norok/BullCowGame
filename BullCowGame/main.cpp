@@ -11,18 +11,17 @@ interaction. For game logic, see the FBullCowGame class.
 using FText = FString;
 using int32 = int;
 
+// Game instantiation
+FBullCowGame BCGame(8);
+
 // Global Constants
-constexpr int32 WORD_LENGTH = 5;
+const int32 WORD_LENGTH = BCGame.GetHiddenWordLength();
 
 // Functions
 void PrintIntro();
-void PrintBackGuess(FText Guess);
 void PlayGame();
 FText GetGuess();
 bool AsktoPlayAgain();
-
-// Game instantiation
-FBullCowGame BCGame(8);
 
 // The entry point for our application
 int main()
@@ -42,16 +41,21 @@ void PlayGame()
 	do {
 		// TODO change from FOR to WHILE loop once validating tries
 		for (int32 i = 1; i <= Tries; i++) {
-			PrintBackGuess(GetGuess()); // TODO check for valid guesses
+			FText Guess = GetGuess();
 
-			// Submit valid guess to the game
+			// Submit valid guess to the game and receive counts
+			FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
 			// Print number of bulls and cows
+			std::cout << "Bulls = " << BullCowCount.Bulls;
+			std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
 		}
 		// TODO Add a game summary at the end
 
 		std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
 		BCGame.Reset();
 	} while (AsktoPlayAgain());
+
+	return;
 }
 
 // introduce the game
@@ -70,16 +74,10 @@ FText GetGuess()
 	int32 CurrentTry = BCGame.GetCurrentTry();
 	int32 MaxTries = BCGame.GetMaxTries();
 
-	std::cout << "Enter your guess (" << CurrentTry << "/" << MaxTries << "): ";
+	std::cout << "\nEnter your guess (" << CurrentTry << "/" << MaxTries << "): ";
 	std::getline(std::cin, Guess);
 
 	return Guess;
-}
-
-// repeat the guess back to the player (feedback)
-void PrintBackGuess(FText Guess)
-{
-	std::cout << "Your guess was \"" << Guess << "\"" << std::endl << std::endl;
 }
 
 bool AsktoPlayAgain()

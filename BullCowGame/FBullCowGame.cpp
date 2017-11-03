@@ -1,6 +1,7 @@
 #include "FBullCowGame.h"
 
 using int32 = int;
+using FString = std::string;
 
 // Definitions
 
@@ -21,9 +22,9 @@ int32 FBullCowGame::GetCurrentTry() const
 	return MyCurrentTry;
 }
 
-void FBullCowGame::IntroduceTheGame() const
+int32 FBullCowGame::GetHiddenWordLength() const
 {
-	return;
+	return MyHiddenWord.length();;
 }
 
 bool FBullCowGame::IsGameWon() const
@@ -31,7 +32,7 @@ bool FBullCowGame::IsGameWon() const
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(FString)
+bool FBullCowGame::CheckGuessValidity(FString) const
 {
 	return false;
 }
@@ -47,7 +48,7 @@ void FBullCowGame::Reset()
 }
 
 // Receives a VALID guess, increments turn and returns count
-FBullCowCount FBullCowGame::SubmitGuess(FString)
+FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 {
 	// increment turn number
 	MyCurrentTry++;
@@ -55,12 +56,27 @@ FBullCowCount FBullCowGame::SubmitGuess(FString)
 	FBullCowCount BullCowCount;
 
 	// loop through all letters in the guess
+	int32 HiddenWordLength = MyHiddenWord.length();
+	int32 CurrentGuessLength = Guess.length();
+	for (int32 GChar = 0; GChar < CurrentGuessLength; GChar++)
+	{
 		// compare letters against the hidden word
-			// If they match then
-				// if in the right place
-					// Increment Bulls
-				//  if not but right
-					// Increment Cows
+		for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++)
+		{
+			if (Guess[GChar] == MyHiddenWord[MHWChar]) // If they match then
+			{
+				if (MHWChar == GChar) // if in the right place
+				{
+					BullCowCount.Bulls++; // Increment Bulls
+				}
+				else
+				{
+					BullCowCount.Cows++; // Increment Cows
+				}
+			}
+			
+		}
+	}
 
 	return BullCowCount;
 }

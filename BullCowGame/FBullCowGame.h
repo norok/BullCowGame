@@ -21,8 +21,8 @@ public:
 
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
-	void IntroduceTheGame() const;
-	bool CheckGuessValidity(FString);
+	int32 GetHiddenWordLength() const;
+	bool CheckGuessValidity(FString) const;
 	FBullCowCount SubmitGuess(FString);
 	
 	bool IsGameWon() const;
