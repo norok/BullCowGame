@@ -6,7 +6,8 @@ using FString = std::string;
 using int32 = int;
 
 // all variables initialised to zero
-struct BullCowCount
+// structs should be named like Classes by UE Standards
+struct FBullCowCount
 {
 	int32 Bulls = 0;
 	int32 Cows = 0;
@@ -22,7 +23,7 @@ public:
 	int32 GetCurrentTry() const;
 	void IntroduceTheGame() const;
 	bool CheckGuessValidity(FString);
-	BullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitGuess(FString);
 	
 	bool IsGameWon() const;
 	void Reset();
