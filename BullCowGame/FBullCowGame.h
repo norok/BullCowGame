@@ -1,6 +1,5 @@
 #pragma once
-
-#include <string>;
+#include <string>
 
 using FString = std::string;
 using int32 = int;
@@ -11,6 +10,14 @@ struct FBullCowCount
 {
 	int32 Bulls = 0;
 	int32 Cows = 0;
+};
+
+enum class EWordStatus
+{
+	OK,
+	Not_Isogram,
+	Wrong_Lenght,
+	Not_Lowercase
 };
 
 // Declarations
@@ -25,9 +32,9 @@ public:
 	int32 GetHiddenWordLength() const;
 
 	FBullCowCount SubmitGuess(FString);
-	bool CheckGuessValidity(FString) const;
-	
+	EWordStatus CheckGuessValidity(FString) const;
 	bool IsGameWon() const;
+	
 	void Reset();
 
 private:
