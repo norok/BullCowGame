@@ -44,9 +44,11 @@ void PlayGame()
 	BCGame.Reset();
 	int32 Tries = BCGame.GetMaxTries();
 
-	do {
+	do
+	{
 		// TODO change from FOR to WHILE loop once validating tries
-		for (int32 i = 1; i <= Tries; i++) {
+		for (int32 i = 1; i <= Tries; i++)
+		{
 			FText Guess = GetGuess();
 
 			// Submit valid guess to the game and receive counts
@@ -59,7 +61,8 @@ void PlayGame()
 
 		std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
 		BCGame.Reset();
-	} while (AsktoPlayAgain());
+	}
+	while (AsktoPlayAgain());
 
 	return;
 }

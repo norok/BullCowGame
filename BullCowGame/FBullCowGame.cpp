@@ -74,7 +74,6 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 					BullCowCount.Cows++; // Increment Cows
 				}
 			}
-			
 		}
 	}
 

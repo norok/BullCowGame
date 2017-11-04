@@ -34,7 +34,7 @@ public:
 	FBullCowCount SubmitGuess(FString);
 	EWordStatus CheckGuessValidity(FString) const;
 	bool IsGameWon() const;
-	
+
 	void Reset();
 
 private:
