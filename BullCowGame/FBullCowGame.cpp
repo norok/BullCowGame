@@ -7,7 +7,7 @@ using FString = std::string;
 
 FBullCowGame::FBullCowGame()
 {
-	FBullCowGame::Reset();
+	Reset();
 	return;
 }
 
@@ -28,7 +28,7 @@ int32 FBullCowGame::GetHiddenWordLength() const
 
 bool FBullCowGame::IsGameWon() const
 {
-	return false;
+	return bGameIsWon;
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -56,6 +56,7 @@ void FBullCowGame::Reset()
 	constexpr int32 MAX_TRIES = 5;
 	const FString HIDDEN_WORD = "planet";
 
+	bGameIsWon = false;
 	MyHiddenWord = HIDDEN_WORD;
 	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
@@ -89,6 +90,8 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 			}
 		}
 	}
+
+	bGameIsWon = (BullCowCount.Bulls == WordLength);
 
 	return BullCowCount;
 }

@@ -42,11 +42,13 @@ void PrintIntro()
 void PlayGame()
 {
 	BCGame.Reset();
-	int32 Tries = BCGame.GetMaxTries();
+	int32 MaxTries = BCGame.GetMaxTries();
 
 	do
 	{
-		for (int32 i = 1; i <= Tries; i++) // TODO change from FOR to WHILE loop once validating tries
+		// loop asking for guesses while the game
+		// is NOT won and there are still tries remaining
+		do
 		{
 			FText Guess = GetValidGuess();
 
@@ -55,10 +57,11 @@ void PlayGame()
 
 			std::cout << "Bulls = " << BullCowCount.Bulls;
 			std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
-		}
+		} while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries);
+
 		// TODO Add a better game summary at the end
 
-		std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
+		//std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
 		BCGame.Reset();
 	} while (AsktoPlayAgain());
 
