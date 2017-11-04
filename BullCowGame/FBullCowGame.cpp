@@ -35,10 +35,12 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
 	if (false)// If the guess is not an isogram
 	{
+		// TODO write function
 		return EGuessStatus::Not_Isogram;
 	}
 	else if (false) // If the guess is not all lowercase
 	{
+		// TODO write function
 		return EGuessStatus::Not_Lowercase;
 	}
 	else if (Guess.length() != GetHiddenWordLength()) // if the guess if wrong lenght
