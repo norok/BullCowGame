@@ -46,29 +46,29 @@ void PlayGame()
 
 	do
 	{
-		// TODO change from FOR to WHILE loop once validating tries
-		for (int32 i = 1; i <= Tries; i++)
+		for (int32 i = 1; i <= Tries; i++) // TODO change from FOR to WHILE loop once validating tries
 		{
 			FText Guess = GetGuess();
 
+			EGuessStatus Status = BCGame.CheckGuessValidity(Guess);
+
 			// Submit valid guess to the game and receive counts
 			FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
-			// Print number of bulls and cows
+
 			std::cout << "Bulls = " << BullCowCount.Bulls;
 			std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
 		}
-		// TODO Add a game summary at the end
+		// TODO Add a better game summary at the end
 
 		std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
 		BCGame.Reset();
-	}
-	while (AsktoPlayAgain());
+	} while (AsktoPlayAgain());
 
 	return;
 }
 
 // get a guess from the player
-FText GetGuess()
+FText GetGuess() // TODO change to GetValidGuess
 {
 	FText Guess = "";
 	int32 CurrentTry = BCGame.GetCurrentTry();
