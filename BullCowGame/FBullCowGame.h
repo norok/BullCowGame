@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <map>
+#define TMap std::map
 
 using FString = std::string;
 using int32 = int;
@@ -27,15 +29,24 @@ class FBullCowGame
 public:
 	FBullCowGame(); // Constructor
 
+	// Constants
+	const FString BAD_ANSWER = "BadAnswer";
+	const FString AVERAGE_ANSWER = "AverageAnswer";
+	const FString GOOD_ANSWER = "GoodAnswer";
+	const FString RIGHT_ANSWER = "RightAnswer";
+
 	// Getters
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
+	FString GetBullCowCountFeedback(FString);
 
+	// Methods
 	FBullCowCount SubmitValidGuess(FString);
 	EGuessStatus CheckGuessValidity(FString) const;
 	bool IsGameWon() const;
 
+	// Reset the game
 	void Reset();
 
 private:
@@ -43,6 +54,7 @@ private:
 	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
+	TMap<FString, FString> FBullCowCountFeedback;
 
 	bool IsIsogram(FString) const;
 	bool IsLowercase(FString) const;

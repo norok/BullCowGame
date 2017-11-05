@@ -20,6 +20,7 @@ void PlayGame();
 FText GetValidGuess();
 bool AsktoPlayAgain();
 void PrintGameSummary();
+void BullCowCountFeedback(FBullCowCount);
 
 // The entry point for our application
 int main()
@@ -36,7 +37,15 @@ int main()
 // introduce the game
 void PrintIntro()
 {
+	std::system("cls"); // Not good but welcome. Only works under Windows, though.
 	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "___                    __" << std::endl;
+	std::cout << "|  \\     | |          /" << std::endl;
+	std::cout << "|  /     | |         |     __" << std::endl;
+	std::cout << "|  \\ | | | | /_      |    |  | \\    / /_" << std::endl;
+	std::cout << "|__/ \\_/ | |  /   &   \\__ |__|  \\/\\/   /" << std::endl << std::endl;
+	std::cout << "A Bull is a right letter in the right place." << std::endl;
+	std::cout << "A Cow is a right letter in the wrong place." << std::endl;
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength()
 		<< " letter isogram I'm thinking of?" << std::endl;
 	return;
@@ -56,6 +65,9 @@ void PlayGame()
 
 		// Submit valid guess to the game and receive counts
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
+
+		// Give some friendly feedback
+		BullCowCountFeedback(BullCowCount);
 
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
@@ -113,6 +125,29 @@ bool AsktoPlayAgain()
 	return (FirstChar == 'y' || FirstChar == 'Y');
 }
 
+void BullCowCountFeedback(FBullCowCount BullCowCount)
+{
+	int32 FullCount = BullCowCount.Bulls + BullCowCount.Cows;
+
+	if (FullCount == 0)
+	{
+		std::cout << BCGame.GetBullCowCountFeedback(BCGame.BAD_ANSWER);
+	}
+	else if (FullCount > 0 && FullCount < BCGame.GetHiddenWordLength() - 2)
+	{
+		std::cout << BCGame.GetBullCowCountFeedback(BCGame.AVERAGE_ANSWER);
+	}
+	else if (BullCowCount.Bulls < BCGame.GetHiddenWordLength())
+	{
+		std::cout << BCGame.GetBullCowCountFeedback(BCGame.GOOD_ANSWER);
+	}
+	else {
+		std::cout << BCGame.GetBullCowCountFeedback(BCGame.RIGHT_ANSWER);
+	}
+
+	std::cout << std::endl;
+}
+
 void PrintGameSummary()
 {
 	if (BCGame.IsGameWon()) {
@@ -120,7 +155,7 @@ void PrintGameSummary()
 	}
 	else
 	{
-		std::cout << "\nSorry, wrong answers buddy." << std::endl << std::endl;
+		std::cout << "\nSorry, wrong answers buddy. Better luck next time!" << std::endl << std::endl;
 	}
 
 	return;

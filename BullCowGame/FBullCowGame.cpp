@@ -10,6 +10,10 @@ using FString = std::string;
 FBullCowGame::FBullCowGame()
 {
 	Reset();
+	FBullCowCountFeedback[BAD_ANSWER] = "That was not good, try another word";
+	FBullCowCountFeedback[AVERAGE_ANSWER] = "Nice choice but still wrong, don't give up!";
+	FBullCowCountFeedback[GOOD_ANSWER] = "You're almost there!";
+	FBullCowCountFeedback[RIGHT_ANSWER] = "That's right! You've got it!";
 	return;
 }
 
@@ -26,6 +30,11 @@ int32 FBullCowGame::GetCurrentTry() const
 int32 FBullCowGame::GetHiddenWordLength() const
 {
 	return MyHiddenWord.length();
+}
+
+FString FBullCowGame::GetBullCowCountFeedback(FString Key)
+{
+	return FBullCowCountFeedback[Key];
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
