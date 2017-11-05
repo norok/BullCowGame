@@ -16,6 +16,7 @@ FBullCowGame BCGame;
 
 // Functions
 void PrintIntro();
+void ChooseDifficulty();
 void PlayGame();
 FText GetValidGuess();
 bool AsktoPlayAgain();
@@ -28,6 +29,7 @@ int main()
 	do
 	{
 		PrintIntro();
+		ChooseDifficulty();
 		PlayGame();
 	} while (AsktoPlayAgain());
 
@@ -46,8 +48,28 @@ void PrintIntro()
 	std::cout << "|__/ \\_/ | |  /   &   \\__ |__|  \\/\\/   /" << std::endl << std::endl;
 	std::cout << "A Bull is a right letter in the right place." << std::endl;
 	std::cout << "A Cow is a right letter in the wrong place." << std::endl;
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength()
+	return;
+}
+
+void ChooseDifficulty()
+{
+	int32 Difficulty = '0';
+	FString Answer = "";
+
+	std::cout << "\nChoose your difficulty:" << std::endl;
+	// Only advance if the player chooses between 1 and 4
+	while (!BCGame.IsValidDifficulty(Difficulty))
+	{
+		std::cout << "(1) Easy, (2) Normal, (3) Hard, (4) Very Hard: ";
+		std::getline(std::cin, Answer);
+		Difficulty = Answer[0];
+	}
+
+	BCGame.SetDifficulty(Difficulty);
+
+	std::cout << "\n\nCan you guess the " << BCGame.GetHiddenWordLength()
 		<< " letter isogram I'm thinking of?" << std::endl;
+
 	return;
 }
 
@@ -118,7 +140,7 @@ FText GetValidGuess()
 
 bool AsktoPlayAgain()
 {
-	std::cout << "Do you want to play again with the same hidden word (y/n)? ";
+	std::cout << "Do you want to play again (y/n)? ";
 	FText Response = "";
 	std::getline(std::cin, Response);
 	char FirstChar = Response[0];

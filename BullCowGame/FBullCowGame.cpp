@@ -1,25 +1,32 @@
 #include "FBullCowGame.h"
 #include <map>
+#include <random>
 #define TMap std::map
 
 using int32 = int;
 using FString = std::string;
+
+std::random_device rd;
+std::mt19937 rng(rd());
 
 // Definitions
 
 FBullCowGame::FBullCowGame()
 {
 	Reset();
-	FBullCowCountFeedback[BAD_ANSWER] = "That was not good, try another word";
-	FBullCowCountFeedback[AVERAGE_ANSWER] = "Nice choice but still wrong, don't give up!";
-	FBullCowCountFeedback[GOOD_ANSWER] = "You're almost there!";
-	FBullCowCountFeedback[RIGHT_ANSWER] = "That's right! You've got it!";
 	return;
 }
 
 int32 FBullCowGame::GetMaxTries() const
 {
-	return MyMaxTries;
+	TMap<int32, int32> WordLengthToMaxTries{
+		{3, 4},
+		{4, 7},
+		{5, 10},
+		{6, 16}
+	};
+
+	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
 
 int32 FBullCowGame::GetCurrentTry() const
@@ -57,6 +64,14 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	}
 }
 
+void FBullCowGame::SetDifficulty(int32 DifficultySetting)
+{
+	Difficulty = DifficultySetting - '0'; // prevents the conversion side effect
+	MyHiddenWord = GetRandomHiddenWord();
+
+	return;
+}
+
 bool FBullCowGame::IsGameWon() const
 {
 	return bGameIsWon;
@@ -64,12 +79,7 @@ bool FBullCowGame::IsGameWon() const
 
 void FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 5;
-	const FString HIDDEN_WORD = "planet";
-
 	bGameIsWon = false;
-	MyHiddenWord = HIDDEN_WORD;
-	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
 	return;
 }
@@ -105,6 +115,27 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 	bGameIsWon = (BullCowCount.Bulls == WordLength);
 
 	return BullCowCount;
+}
+
+/* Private methods */
+
+FString FBullCowGame::GetRandomHiddenWord()
+{
+	TMap<int32, FString> WordsMap = FWordDifficulty[Difficulty];
+	std::uniform_int_distribution<int> uni(1, 4);
+	int32 WordIndex = uni(rng);
+
+	return WordsMap[WordIndex];
+}
+
+bool FBullCowGame::IsValidDifficulty(char DifficultySetting) const
+{
+	if (!isalpha(DifficultySetting)) {
+		int32 Character = DifficultySetting - '0'; // convert char to int
+		return Character >= 1 && Character <= 4;
+	}
+
+	return false;
 }
 
 bool FBullCowGame::IsIsogram(FString Word) const
