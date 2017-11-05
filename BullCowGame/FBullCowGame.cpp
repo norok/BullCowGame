@@ -1,16 +1,22 @@
+/*
+This is the file where the FBullCowGame Class get its Definitions from
+*/
+
+#pragma once
 #include "FBullCowGame.h"
 #include <map>
 #include <random>
 #define TMap std::map
 
+// Preparations for Unreal code substitutions (Unreal friendly)
 using int32 = int;
 using FString = std::string;
 
+// Code for generating a random number
 std::random_device rd;
 std::mt19937 rng(rd());
 
 // Definitions
-
 FBullCowGame::FBullCowGame()
 {
 	Reset();

@@ -3,18 +3,20 @@ This is the console executable that makes use of the BullCowGame class.
 This acts as the view in a MVC pattern and is responsible for all the user
 interaction. For game logic, see the FBullCowGame class.
 */
+#pragma once
 
 #include <iostream>
+#include <string>
 #include "FBullCowGame.h"
 
-// Preparations for Unreal code substitutions
+// Preparations for Unreal code substitutions (Unreal friendly)
 using FText = std::string;
 using int32 = int;
 
 // Game instantiation
 FBullCowGame BCGame;
 
-// Functions
+// Functions  prototyping
 void PrintIntro();
 void ChooseDifficulty();
 void PlayGame();
@@ -33,10 +35,9 @@ int main()
 		PlayGame();
 	} while (AsktoPlayAgain());
 
-	return 0;
+	return 0; // return 0 on main will exit the application
 }
 
-// introduce the game
 void PrintIntro()
 {
 	std::system("cls"); // Not good but welcome. Only works under Windows, though.
@@ -51,6 +52,7 @@ void PrintIntro()
 	return;
 }
 
+// Ask the user for a Difficulty input
 void ChooseDifficulty()
 {
 	int32 Difficulty = '0';
@@ -73,10 +75,10 @@ void ChooseDifficulty()
 	return;
 }
 
-// Play a single game
+// Play a single game to completion
 void PlayGame()
 {
-	BCGame.Reset();
+	BCGame.Reset(); // Reset the game before starting a new play
 	int32 MaxTries = BCGame.GetMaxTries();
 
 	// loop asking for guesses while the game
@@ -102,7 +104,6 @@ void PlayGame()
 	return;
 }
 
-// loop until the user giver a valid guess
 FText GetValidGuess()
 {
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
@@ -147,6 +148,7 @@ bool AsktoPlayAgain()
 	return (FirstChar == 'y' || FirstChar == 'Y');
 }
 
+// Give a friendly feedback after each valid guess
 void BullCowCountFeedback(FBullCowCount BullCowCount)
 {
 	int32 FullCount = BullCowCount.Bulls + BullCowCount.Cows;

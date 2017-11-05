@@ -1,12 +1,17 @@
+/*
+This is the main Game Class, where all declarations and other useful stuff goes.
+The game logic (no view code or direct user interaction)
+*/
+
 #pragma once
 #include <string>
 #include <map>
-#define TMap std::map
 
+// Preparations for Unreal code substitutions (Unreal friendly)
+#define TMap std::map
 using FString = std::string;
 using int32 = int;
 
-// all variables initialised to zero
 // structs should be named like Classes by UE Standards
 struct FBullCowCount
 {
@@ -14,6 +19,7 @@ struct FBullCowCount
 	int32 Cows = 0;
 };
 
+// enums start with an E by UE Standards
 enum class EGuessStatus
 {
 	Invalid_Status,
@@ -65,6 +71,9 @@ private:
 		{ RIGHT_ANSWER, "That's right! You've got it!" }
 	};
 
+	/*
+	All these words must be Isograms
+	*/
 	TMap<int32, FString> FEasyWords
 	{
 		{ 1, "ape" },
