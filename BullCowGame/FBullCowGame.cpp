@@ -1,4 +1,6 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 using int32 = int;
 using FString = std::string;
@@ -26,24 +28,17 @@ int32 FBullCowGame::GetHiddenWordLength() const
 	return MyHiddenWord.length();
 }
 
-bool FBullCowGame::IsGameWon() const
-{
-	return bGameIsWon;
-}
-
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	if (false)// If the guess is not an isogram
+	if (!IsIsogram(Guess))// If the guess is not an isogram
 	{
-		// TODO write function
 		return EGuessStatus::Not_Isogram;
 	}
-	else if (false) // If the guess is not all lowercase
+	else if (!IsLowercase(Guess)) // If the guess is not all lowercase
 	{
-		// TODO write function
 		return EGuessStatus::Not_Lowercase;
 	}
-	else if (Guess.length() != GetHiddenWordLength()) // if the guess if wrong lenght
+	else if (Guess.length() != GetHiddenWordLength()) // if the guess length is wrong
 	{
 		return EGuessStatus::Wrong_Lenght;
 	}
@@ -51,6 +46,11 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	{
 		return EGuessStatus::OK;
 	}
+}
+
+bool FBullCowGame::IsGameWon() const
+{
+	return bGameIsWon;
 }
 
 void FBullCowGame::Reset()
@@ -96,4 +96,49 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 	bGameIsWon = (BullCowCount.Bulls == WordLength);
 
 	return BullCowCount;
+}
+
+bool FBullCowGame::IsIsogram(FString Word) const
+{
+	if (Word.length() <= 1) // the guess is blank or one letter only
+	{
+		return true;
+	}
+
+	TMap<char, bool> LetterSeen;
+
+	for (auto Letter : Word) // for all letters of the word
+	{
+		Letter = tolower(Letter); // handle mixed case
+		if (!isalpha(Letter)) {
+			return true; // leave this checking to IsLowercase
+		}
+		else if (LetterSeen[Letter])
+		{
+			return false;
+		}
+		else
+		{
+			LetterSeen[Letter] = true;
+		}
+	}
+
+	return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const
+{
+	if (Word.length() == 0) // the guess is blank
+	{
+		return true;
+	}
+
+	for (auto Letter : Word)
+	{
+		if (!islower(Letter) || !isalpha(Letter)) {
+			return false;
+		}
+	}
+
+	return true;
 }
